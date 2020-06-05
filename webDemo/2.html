@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div id="box" style="width: 800px;height: 200px">
+
+        </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script>
+    $(function () {
+        var obj=option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                type:'scroll',
+                left: 10,
+                data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他',
+                    '直达1', '营销广告1', '搜索引擎1', '邮件营销1', '联盟广告1', '视频广告1', '百度1', '谷歌1', '必应1', '其他1'
+                ]
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: ['40%', '55%'],
+                    data: [
+                        {value: 335, name: '直达'},
+                        {value: 310, name: '邮件营销'},
+                        {value: 234, name: '联盟广告'},
+                        {value: 135, name: '视频广告'},
+                        {value: 1048, name: '百度'},
+                        {value: 251, name: '谷歌'},
+                        {value: 147, name: '必应'},
+                        {value: 102, name: '其他'},
+                        {value: 35, name: '直达'},
+                        {value: 10, name: '邮件营销1'},
+                        {value: 34, name: '联盟广告1'},
+                        {value: 35, name: '视频广告1'},
+                        {value: 48, name: '百度1'},
+                        {value: 51, name: '谷歌1'},
+                        {value: 47, name: '必应1'},
+                        {value: 10, name: '其他1'}
+                    ]
+                }
+            ]
+        };
+
+        var myChart = echarts.init(document.getElementById('box'));
+        myChart.setOption(obj)
+    })
+</script>
+</html>
