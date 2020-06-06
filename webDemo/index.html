@@ -28,10 +28,10 @@
                    <thead>
                    <tr>
                        <th width="10%">序号</th>
-                       <th width="12.5%">车次</th>
-                       <th width="12.5%">车号</th>
+                       <th width="10%">车次</th>
+                       <th width="10%">车号</th>
                        <th width="15%">轨道</th>
-                       <th width="20%">出库时间</th>
+                       <th width="25%">出库时间</th>
                        <th width="30%">备注</th>
                    </tr>
                    </thead>
@@ -41,7 +41,7 @@
                        <td>0401</td>
                        <td>0417</td>
                        <td>01A</td>
-                       <td>2020-05-23 11:00</td>
+                       <td><div class="time">2020-05-23 11:00</div></td>
                        <td width="30%">
                            <a class="comment">这这里这这里是备注这里是备注里是备注这这里是备注这里是备注里是备注是备注这里是备注里是备注</a>
                        </td>
@@ -153,6 +153,11 @@
         $("#leftTable").mCustomScrollbar({
             theme:"minimal"
         });
+        let fontSize=Number.parseInt(((document.body.clientWidth)*16)/1920)+'px'
+        console.log(7777)
+        console.log(fontSize)
+        $("html").css({'font-size':fontSize})
     })
+
 </script>
 </html>

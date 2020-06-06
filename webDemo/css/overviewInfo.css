@@ -22,24 +22,43 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.table-item{
+.item{
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.item .item-title{
     float: left;
+    width:100px;
+    min-height:180px;
+    text-align: center;
+    background:rgba(53,104,224,1);
+    border-radius:6px;
+    font-size: 1.8rem;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    margin-right: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px 20px;
+    line-height: 1.5;
 }
-.right-item{
+.item .item-content{
+    width: calc(100% - 120px);
     float: right;
-}
-.table-item,.right-item{
-    width: calc(50% - 10px);
-    height: 100%;
-    min-height: 500px;
     box-shadow:0px 2px 15px 0px rgba(13,100,195,1);
     border-radius:6px;
     border:1px solid rgba(53,104,224,1);
 }
-.table-item table,.right-item table{
+.item-content table{
     width: 100%;
 }
-.table-item table th,.right-item table th{
+
+.item-content table{
+    width: 100%;
+}
+.item-content table th{
     height:50px;
     line-height: 50px;
     color: #ffffff;
@@ -49,7 +68,7 @@
     font-family:PingFangSC-Medium,PingFang SC;
     font-weight:500;
 }
-.table-item table td,.right-item table td{
+.item-content table td{
     height:50px;
     line-height: 50px;
     color: #ffffff;
@@ -58,21 +77,30 @@
     font-family:PingFangSC-Regular,PingFang SC;
     font-weight:400;
 }
-.table-item table tbody tr td:first-child,
-.right-item table tbody tr td:first-child
+.item-content table tbody tr td:first-child
 {
     color:rgba(255,187,56,1);
 }
-.table-item table .time{
+.item-content table .time{
     line-height: 1.5;
 }
-.table-item table .comment{
+.item-content table .comment{
     display: block;
     max-width: 230px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 
+}
+.yes{
+    display: inline-block;
+    width:60px;
+    height:34px;
+    text-align: center;
+    line-height: 34px;
+    margin-top: 8px;
+    background:rgba(234,119,70,1);
+    border-radius:6px;
 }
 #rightTable{
     width: 100%;

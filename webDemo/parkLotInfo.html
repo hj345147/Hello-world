@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <title>停车场信息</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="css/parkLotInfo.css">
+</head>
+<body>
+<div class="title">
+    <img class="title-img" src="./images/top_title5@2x.png" alt="">
+    <div class="time-sign">
+        <p>2020年5月23日 星期六 晴天</p>
+      <!--  <p class="level-explain">
+            <span>保驾等级: XXX</span>
+            <span>运行图: XXXX</span>
+        </p>-->
+    </div>
+</div>
+<div class="content-box clearfix">
+    <div class="left-content">
+        <div class="type-title">车辆当班信息</div>
+        <div class="car-box">
+            <ul class="car-list">
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="middle-img">
+        <div class="img-bg"><img src="./images/pic@2x.png" alt=""></div>
+    </div>
+    <div class="right-content">
+        <div class="type-title base-info">车场基本信息</div>
+        <div class="car-box">
+            <ul class="car-list">
+                <li>
+                    <div class="img-head">
+                        <img src="./images/pic01@2x.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>停车股道</h4>
+                        <div class="user-info">
+                            停车列检库1-15A、1-15B、16A共计可停放31列车
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/pic02@2x.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>检修股道</h4>
+                        <div class="user-info">
+                            停车列检库16B、17A、17B、18A、19A、20A、21A 共计可停放5列车
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/pic03@2x.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场道岔</h4>
+                        <div class="user-info">
+                            停车列检库1-15A、1-15B、16A共计可停放31列车
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/pic04@2x.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场信号机</h4>
+                        <div class="user-info">
+                            停车列检库16B、17A、17B、18A、19A、20A、21A 共计可停放5列车
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/pic05@2x.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>无接触网线路</h4>
+                        <div class="user-info">
+                            停车列检库1-15A、1-15B、16A共计可停放31列车
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+    $(function () {
+        /***********隐藏滚动条***********/
+        $("#rightTable").mCustomScrollbar({
+            theme:"minimal"
+        });
+        $("#leftTable").mCustomScrollbar({
+            theme:"minimal"
+        });
+        let fontSize=Number.parseInt(((document.body.clientWidth)*16)/1920)+'px'
+        console.log(fontSize)
+        $("html").css({'font-size':fontSize})
+    })
+</script>
+</html>

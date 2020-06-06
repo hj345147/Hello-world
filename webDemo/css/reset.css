@@ -74,10 +74,11 @@ video {
 }
 body {
     line-height: 1;
-    font-family: 'Microsoft Ya Hei';
+    font-family: 'Microsoft Ya Hei,PingFangSC-Medium,PingFang SC';
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 article,
 aside,
 details,
