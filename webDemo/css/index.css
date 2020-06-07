@@ -53,11 +53,22 @@
     height:50px;
     line-height: 50px;
     color: #ffffff;
+    cursor: pointer;
     font-size:1.2rem;
     text-align: center;
     font-family:PingFangSC-Regular,PingFang SC;
     font-weight:400;
+    border-bottom:1px solid rgba(53,104,224,1);
 }
+.table-item table tbody tr:nth-child(even) td,
+.right-item table tbody tr:nth-child(even) td{
+    background:rgba(0,0,0,0.2);
+}
+.table-item table tbody tr:hover td,
+.right-item table tbody tr:hover td{
+    background:rgba(0,0,0,0.2);
+}
+
 .table-item table tbody tr td:first-child,
 .right-item table tbody tr td:first-child
 {
@@ -72,7 +83,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-
 }
 #rightTable{
     width: 100%;
