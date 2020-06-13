@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="title">
-    <img class="title-img" src="./images/top_title3@2x.png" alt="">
+    <img class="title-img" src="./images/top_title4@2x.png" alt="">
     <div class="time-sign">
         <p>2020年5月23日 星期六 晴天</p>
         <p class="level-explain">
@@ -670,10 +670,22 @@
         $("#leftTable").mCustomScrollbar({
             theme:"minimal"
         });
-        let fontSize=Number.parseInt(((document.body.clientWidth)*16)/1920)+'px'
-        console.log(7777)
-        console.log(fontSize)
-        $("html").css({'font-size':fontSize})
+
+        function addWebSocket() {
+            var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=2');
+            ws.onopen = function(){//连接成功
+                console.info("open");
+                let obj={'head':'GetAmOutTrainData',message:''}
+                ws.send(obj)
+            };
+            ws.onmessage = function(evt) {//接收数据
+                console.log( "Received Message: " + evt.data);
+                let str=evt.data;//接收的数据
+                let strList=eval(str.split('开始')[1].split('结束')[0]);
+                bindData(strList)
+                ws.close();
+            };
+        }
     })
 </script>
 </html>

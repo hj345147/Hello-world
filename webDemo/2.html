@@ -3,11 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .box{
+            position: relative;
+            width: 200px;
+            height: 300px;
+            border:1px solid #e00;
+
+        }
+        .box2{
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            background-color: #000000;
+        }
+        .singl{
+            width: 0;
+            height: 0;
+            border-bottom: 10px solid #000000;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+    </style>
 </head>
 <body>
-        <div id="box" style="width: 800px;height: 200px">
+<!--  <div id="box" style="width: 800px;height: 200px">
 
-        </div>
+  </div>-->
+
+<div class="box">
+    <div class="box2"></div>
+</div>
+<div>
+    flex/根据已知宽度计算、flex、table-cell/transfom
+    rem,相对于页面的根元素html
+    1em相对于父元素的字体大小
+    vw/vh视窗的宽度/高度 1vw/vh 相当于1%
+    px相当于屏幕分辨率而言
+    transform: scale(0.5,0.5);
+</div>
+
+<div class="singl"></div>
+
+<ul id="uiObj">
+    <li>btn1</li>
+    <li>btn2</li>
+    <li>btn3</li>
+</ul>
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/echarts.min.js"></script>
@@ -53,8 +98,148 @@
             ]
         };
 
-        var myChart = echarts.init(document.getElementById('box'));
-        myChart.setOption(obj)
+        // var myChart = echarts.init(document.getElementById('box'));
+        //  myChart.setOption(obj)
     })
+
+    var arr = [7,2,0,-3,5];
+    let max=arr.reduce(function (a,b) {
+        return a>b?a:b
+    })
+   // console.log(max)
+
+
+    //let arr=Array.form(new Set(arr))
+
+
+
+    /*    function unique(arr) {
+            var array= arr;
+            var len = array.length;
+
+            array.sort(function(a,b){   //排序后更加方便去重
+                return a - b;
+            })
+
+            function loop(index){
+                if(index >= 1){
+                    if(array[index] === array[index-1]){
+                        array.splice(index,1);
+                    }
+                    loop(index - 1);    //递归loop，然后数组去重
+                }
+            }
+            loop(len-1);
+            return array;
+        }*/
+    var arrList = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+
+
+
+    function over(arr) {
+        let array=arr;
+        let len=array.length
+        array.sort(function (a,b) {
+            return a-b
+        })
+        function loop(index) {
+            console.log(`第${index}次：`+index)
+            if(index>=1){
+                if(array[1] === array[index-1]){
+                    array.splice(index,1)
+                }
+                loop(index-1)
+            }
+
+        }
+        loop(len-1)
+        return array
+    }
+
+    function f() {
+        let sum=0
+        function add(index){
+            if(index>0&&index<=100){
+                sum += index;
+                add(index-1)
+            }
+        }
+        add(3)
+        return sum
+    }
+    let uiObj=document.getElementById('uiObj');
+    let liObj=document.getElementsByTagName('li')
+
+    for (var i=0;i<liObj.length; i++){
+      //  console.log(i)
+        liObj[i].onclick=function (i) {
+        //    console.log(i)
+        }
+    }
+
+    let arrM=[5,6,7,8];
+   let t=arrM.map(item=>{
+       return {
+             item
+       }
+   })
+  /*  console.log(typeof (t))
+    console.log(t)*/
+
+
+
+    var strL ="adadfdfseffserfefsefseeffffftsdg"; //命名一个变量放置给出的字符串
+    var maxLength = 0; //命名一个变量放置字母出现的最高次数并初始化为0
+    var result = ''; //命名一个变量放置结果输入
+
+  /*  while( str != '' ){ //循环迭代开始，并判断字符串是否为空
+        oldStr = str; //将原始的字符串变量赋值给新变量
+        getStr = str.substr(0,1); //用字符串的substr的方法得到第一个字符（首字母）
+
+        eval("str = str.replace(/"+getStr+"/g,'')"); //详细如补充
+       /!* console.log(8888,getStr)
+        console.log(9999,str)*!/
+        // console.log(oldStr.length,str.length)
+        if( oldStr.length-str.length > maxLength ) { //判断原始的字符串的长度减去替代后字符串长度是否大于之前出现的最大的字符串长度
+            maxLength = oldStr.length-str.length; //两字符串长度相减得到最大的字符串长度
+            result = getStr + "=" + maxLength //返回最大的字符串结果（字母、出现次数）
+        }
+    }*/
+   // alert(result) //弹出结果
+
+    var a = {};
+    var b = strL.split('')
+    // key为元素   值为个数
+    for (let i = 0; i < b.length; i++) {
+        if(a[b[i]]){
+            a[b[i]]++
+        }else{
+            a[b[i]]=1
+        }
+    }
+    let maxNum=0;
+    let k='';
+    for (let item in a){
+        if(a[item]>max){
+            maxNum=a[item];
+            k=item
+        }
+    }
+
+    let str='开始[{"type": "6", "name": "作业申请中","color": "#24CE49"},{"type": "6", "name": "作业申请中","color": "#24CE49"},]结束:GetStatus'
+
+    let strList=eval(str.split('开始')[1].split('结束')[0]);
+
+  //  console.log(strList)
+
+
+    var aa = ['aa','bb','cc'];
+
+    for(let i in aa){
+        console.log(i);
+        console.log(aa[i]);
+
+    }
+
 </script>
 </html>

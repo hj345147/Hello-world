@@ -177,5 +177,23 @@
         console.log(fontSize)
         $("html").css({'font-size':fontSize})
     })
+    function addWebSocket() {
+        var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=0');
+        ws.onopen = function(){//连接成功
+            console.info("open");
+            let obj={'head':'GetAmOutTrainData',message:''}
+            ws.send(obj)
+        };
+        ws.onmessage = function(evt) {//接收数据
+            console.log( "Received Message: " + evt.data);
+            if(evt.data==='开始')return
+            if(evt.data.indexOf('结束')!=-1){
+                let str=evt.data;//接收的数据
+                let strList=eval(str.split('开始')[1].split('结束')[0]);
+                bindData(strList)
+                ws.close();
+            }
+        };
+    }
 </script>
 </html>

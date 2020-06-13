@@ -142,6 +142,21 @@
         console.log(7777)
         console.log(fontSize)
         $("html").css({'font-size':fontSize})
+        function addWebSocket() {
+            var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=1');
+            ws.onopen = function(){//连接成功
+                console.info("open");
+                let obj={'head':'GetAmOutTrainData',message:''}
+                ws.send(obj)
+            };
+            ws.onmessage = function(evt) {//接收数据
+                console.log( "Received Message: " + evt.data);
+                let str='开始[{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},]结束:GetStatus'
+                let strList=eval(str.split('开始')[1].split('结束')[0]);
+                bindData(strList)
+            };
+        }
+
     })
 </script>
 </html>
