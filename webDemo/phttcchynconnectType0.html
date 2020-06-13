@@ -24,8 +24,104 @@
 <div class="content-box clearfix">
     <div class="left-content">
         <div class="type-title">车辆当班信息</div>
-        <div class="car-box">
+        <div id="leftCar" class="car-box">
             <ul class="car-list">
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-head">
+                        <img src="./images/user_pic.png" alt="">
+                    </div>
+                    <div class="car-info">
+                        <h4>车场值班长</h4>
+                        <div class="user-info">
+                            <span>姓 <i></i> 名：</span>
+                            郝 军
+                        </div>
+                        <div class="phone-info">
+                            <span>电话号码：</span>
+                            5662321
+                        </div>
+                    </div>
+                </li>
                 <li>
                     <div class="img-head">
                         <img src="./images/user_pic.png" alt="">
@@ -98,7 +194,7 @@
     </div>
     <div class="right-content">
         <div class="type-title base-info">车场基本信息</div>
-        <div class="car-box">
+        <div id="rightCar" class="car-box">
             <ul class="car-list">
                 <li>
                     <div class="img-head">
@@ -167,33 +263,68 @@
 <script>
     $(function () {
         /***********隐藏滚动条***********/
-        $("#rightTable").mCustomScrollbar({
+        $("#leftCar").mCustomScrollbar({
             theme:"minimal"
         });
-        $("#leftTable").mCustomScrollbar({
+        $("#rightCar").mCustomScrollbar({
             theme:"minimal"
         });
         let fontSize=Number.parseInt(((document.body.clientWidth)*16)/1920)+'px'
         console.log(fontSize)
         $("html").css({'font-size':fontSize})
+        let h = window.innerHeight;
+        let w = 120;
+        if (window.innerWidth < 1920) {
+            if (window.innerWidth == 1600) {
+                w = 100
+            } else if (window.innerWidth == 1440) {
+                w = 90
+            } else if (window.innerWidth == 1366) {
+                w = 85
+            }
+        }
+        console.log(h)
+        document.querySelector('#rightCar').style.height = (h - w - 110) + 'px'
+        document.querySelector('#leftCar').style.height = (h - w - 110) + 'px'
     })
+
     function addWebSocket() {
         var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=0');
         ws.onopen = function(){//连接成功
-            console.info("open");
-            let obj={'head':'GetAmOutTrainData',message:''}
-            ws.send(obj)
+            //计划施工数据
+            ws.send(JSON.stringify({'head':'GetPlanBuildData',message:''}))
         };
         ws.onmessage = function(evt) {//接收数据
             console.log( "Received Message: " + evt.data);
             if(evt.data==='开始')return
             if(evt.data.indexOf('结束')!=-1){
-                let str=evt.data;//接收的数据
-                let strList=eval(str.split('开始')[1].split('结束')[0]);
+                return
+            }else{
+                let strList=''
+                 strList +=evt.data;
                 bindData(strList)
-                ws.close();
             }
         };
+    }
+    function bindData(str) {//渲染table
+        let arr=JSON.parse(str)
+        let tableStr=''
+        for (let i=0;i<arr.length;i++){
+            tableStr+=`<tr>
+                           <td>${i+1}</td>
+                           <td>${arr[i].trainNumber?arr[i].trainNumber:''}</td>
+                           <td>${arr[i].planTrainNo?arr[i].planTrainNo:''}</td>
+                           <td>${arr[i].stationTrack?arr[i].stationTrack:''}</td>
+                           <td><div class="time">${arr[i].planOutDate}</div></td>
+                            <td>${arr[i].realTrainNo?arr[i].realTrainNo:''}</td>
+                             <td><div class="time">${arr[i].realOutDate?arr[i].realOutDate:''}</div></td>
+                           <td >
+                               <a class="comment">${arr[i].remark?arr[i].remark:''}</a>
+                           </td>
+                       </tr>`
+            }
+        }
+        $("#rightBody").html(rtable)
     }
 </script>
 </html>

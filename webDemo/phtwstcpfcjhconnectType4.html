@@ -210,40 +210,40 @@
         },1000)
     })
 
-
     function addWebSocket() {
-        var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=0');
+        var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=4');
         ws.onopen = function(){//连接成功
             console.info("open");
             let obj={'head':'GetAmOutTrainData',message:''}
-            ws.send(obj)
+            ws.send(JSON.stringify(obj))
         };
         ws.onmessage = function(evt) {//接收数据
             console.log( "Received Message: " + evt.data);
             if(evt.data==='开始')return
             if(evt.data.indexOf('结束')!=-1){
-            //    let str='开始[{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},]结束:GetStatus'
-                let str=evt.data;//接收的数据
-                let strList=eval(str.split('开始')[1].split('结束')[0]);
+                return
+            }else{
+                let strList=''
+                strList +=evt.data;
                 bindData(strList)
             }
         };
     }
-    function bindData(arr) {//渲染table
-        console.log(arr)
+    function bindData(str) {//渲染table
+        let arr=JSON.parse(str)
         let ltable=''
         let rtable=''
         for (let i=0;i<arr.length;i++){
             let tr=`<tr>
                            <td>${i+1}</td>
-                           <td>${arr[i].trainNumber}</td>
-                           <td>${arr[i].planTrainNo}</td>
-                           <td>${arr[i].stationTrack}</td>
+                           <td>${arr[i].trainNumber?arr[i].trainNumber:''}</td>
+                           <td>${arr[i].planTrainNo?arr[i].planTrainNo:''}</td>
+                           <td>${arr[i].stationTrack?arr[i].stationTrack:''}</td>
                            <td><div class="time">${arr[i].planOutDate}</div></td>
-                            <td>${arr[i].realTrainNo }</td>
-                             <td><div class="time">${arr[i].realOutDate}</div></td>
+                            <td>${arr[i].realTrainNo?arr[i].realTrainNo:''}</td>
+                             <td><div class="time">${arr[i].realOutDate?arr[i].realOutDate:''}</div></td>
                            <td >
-                               <a class="comment">${arr[i].remark}</a>
+                               <a class="comment">${arr[i].remark?arr[i].remark:''}</a>
                            </td>
                        </tr>`
             if(i%2==0){
@@ -256,11 +256,5 @@
         $("#rightBody").html(rtable)
     }
 
-    let str='开始[{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},]结束:GetStatus'
-    let strList=eval(str.split('开始')[1].split('结束')[0]);
-    bindData(strList)
-    window.onbeforeunload = function() {
-        alert(8888)
-    };
 </script>
 </html>

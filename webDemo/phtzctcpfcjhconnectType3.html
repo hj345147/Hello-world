@@ -211,24 +211,26 @@
     })
 
     function addWebSocket() {
-        var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=0');
+        var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=3');
         ws.onopen = function(){//连接成功
             console.info("open");
             let obj={'head':'GetAmOutTrainData',message:''}
-            ws.send(obj)
+            ws.send(JSON.stringify(obj))
         };
         ws.onmessage = function(evt) {//接收数据
             console.log( "Received Message: " + evt.data);
             if(evt.data==='开始')return
             if(evt.data.indexOf('结束')!=-1){
-                //    let str='开始[{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},]结束:GetStatus'
-                let str=evt.data;//接收的数据
-                let strList=eval(str.split('开始')[1].split('结束')[0]);
+                return
+            }else{
+                let strList=''
+                strList +=evt.data;
                 bindData(strList)
             }
         };
     }
-    function bindData(arr) {//渲染table
+    function bindData(str) {//渲染table
+        let arr=JSON.parse(str)
         let ltable=''
         let rtable=''
         for (let i=0;i<arr.length;i++){
@@ -253,9 +255,6 @@
         $("#leftBody").html(ltable)
         $("#rightBody").html(rtable)
     }
-/****模拟数据**/
-    let str='开始[{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},{"trainNumber": "10101","planTrainNo": "0401","stationTrack": "L-5A","planOutDate": "06:21:45","realTrainNo": "0401","realOutDate": "06:25:12","remark": "注意安全"},]结束:GetStatus'
-    let strList=eval(str.split('开始')[1].split('结束')[0]);
-    bindData(strList)
+
 </script>
 </html>
