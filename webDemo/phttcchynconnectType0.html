@@ -14,18 +14,18 @@
 <div class="title">
     <img class="title-img" src="./images/top_title5@2x.png" alt="">
     <div class="time-sign">
-        <p>2020年5月23日 星期六 晴天</p>
-      <!--  <p class="level-explain">
-            <span>保驾等级: XXX</span>
-            <span>运行图: XXXX</span>
-        </p>-->
+        <p><span class="current-time">2020年5月23日 星期六</span> <span class="today-weather">晴天</span></p>
+        <!--  <p class="level-explain">
+              <span>保驾等级: XXX</span>
+              <span>运行图: XXXX</span>
+          </p>-->
     </div>
 </div>
 <div class="content-box clearfix">
     <div class="left-content">
         <div class="type-title">车辆当班信息</div>
         <div id="leftCar" class="car-box">
-            <ul class="car-list">
+            <ul class="car-list" id="userList">
                 <li>
                     <div class="img-head">
                         <img src="./images/user_pic.png" alt="">
@@ -42,54 +42,7 @@
                         </div>
                     </div>
                 </li>
-                <li>
-                    <div class="img-head">
-                        <img src="./images/user_pic.png" alt="">
-                    </div>
-                    <div class="car-info">
-                        <h4>车场值班长</h4>
-                        <div class="user-info">
-                            <span>姓 <i></i> 名：</span>
-                            郝 军
-                        </div>
-                        <div class="phone-info">
-                            <span>电话号码：</span>
-                            5662321
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="img-head">
-                        <img src="./images/user_pic.png" alt="">
-                    </div>
-                    <div class="car-info">
-                        <h4>车场值班长</h4>
-                        <div class="user-info">
-                            <span>姓 <i></i> 名：</span>
-                            郝 军
-                        </div>
-                        <div class="phone-info">
-                            <span>电话号码：</span>
-                            5662321
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="img-head">
-                        <img src="./images/user_pic.png" alt="">
-                    </div>
-                    <div class="car-info">
-                        <h4>车场值班长</h4>
-                        <div class="user-info">
-                            <span>姓 <i></i> 名：</span>
-                            郝 军
-                        </div>
-                        <div class="phone-info">
-                            <span>电话号码：</span>
-                            5662321
-                        </div>
-                    </div>
-                </li>
+
                 <li>
                     <div class="img-head">
                         <img src="./images/user_pic.png" alt="">
@@ -187,6 +140,7 @@
                     </div>
                 </li>
             </ul>
+            <div class="no-data">暂无数据</div>
         </div>
     </div>
     <div class="middle-img">
@@ -202,7 +156,7 @@
                     </div>
                     <div class="car-info">
                         <h4>停车股道</h4>
-                        <div class="user-info">
+                        <div class="user-info Tcgd">
                             停车列检库1-15A、1-15B、16A共计可停放31列车
                         </div>
                     </div>
@@ -213,7 +167,7 @@
                     </div>
                     <div class="car-info">
                         <h4>检修股道</h4>
-                        <div class="user-info">
+                        <div class="user-info Jxgd">
                             停车列检库16B、17A、17B、18A、19A、20A、21A 共计可停放5列车
                         </div>
                     </div>
@@ -224,7 +178,7 @@
                     </div>
                     <div class="car-info">
                         <h4>车场道岔</h4>
-                        <div class="user-info">
+                        <div class="user-info Ccdc">
                             停车列检库1-15A、1-15B、16A共计可停放31列车
                         </div>
                     </div>
@@ -235,7 +189,7 @@
                     </div>
                     <div class="car-info">
                         <h4>车场信号机</h4>
-                        <div class="user-info">
+                        <div class="user-info  Ccxhj" >
                             停车列检库16B、17A、17B、18A、19A、20A、21A 共计可停放5列车
                         </div>
                     </div>
@@ -246,7 +200,7 @@
                     </div>
                     <div class="car-info">
                         <h4>无接触网线路</h4>
-                        <div class="user-info">
+                        <div class="user-info  Wjcwxl">
                             停车列检库1-15A、1-15B、16A共计可停放31列车
                         </div>
                     </div>
@@ -260,7 +214,10 @@
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/common.js"></script>
 <script>
+    var timer=null;
+    var ws=null;//WebSocket实例
     $(function () {
         /***********隐藏滚动条***********/
         $("#leftCar").mCustomScrollbar({
@@ -269,9 +226,61 @@
         $("#rightCar").mCustomScrollbar({
             theme:"minimal"
         });
-        let fontSize=Number.parseInt(((document.body.clientWidth)*16)/1920)+'px'
-        console.log(fontSize)
-        $("html").css({'font-size':fontSize})
+
+        let testObj={
+            "ccjbxxList": {
+            "ccxhj": "D1-D30,X1-X24,S1-24",
+                  "ccdc": "1-26道岔",
+                  "tcgd": "停车列检线1-15A，1-15B,16A共计可停放31列车",
+                  "jxgd": "停车列检线16A，17B，18A，18B共计可停放4列车",
+                  "wjcwxl": "21G-24G"
+        },
+            "cldbxxList": [
+            {
+                "name": "张善",
+                "position": "车场值班长",
+                "phone": "14781724614",
+                "bz": "管理一组"
+            },
+            {
+                "name": "张思",
+                "position": "运转值班员",
+                "phone": "14781724614",
+                "bz": "管理一组"
+            },
+            {
+                "name": "张吴",
+                "position": "设备值班员",
+                "phone": "14781724614",
+                "bz": "管理一组"
+            },
+            {
+                "name": "张柳",
+                "position": "信号楼值班员",
+                "phone": "14781724614",
+                "bz": "管理一组"
+            },
+            {
+                "name": "张启",
+                "position": "信号楼值班员",
+                "phone": "14781724614",
+                "bz": "管理一组"
+            },
+            {
+                "name": "张巴",
+                "position": "信号楼值班员",
+                "phone": "14781724614",
+                "bz": "管理一组"
+            }
+        ]
+        }
+        bindData(JSON.stringify(testObj))
+        addWebSocket();//默认执行第一次
+        timer=setInterval(function () {//根据状态判断时候重新建立连接
+            if(ws.readyState!=1){//未连接
+                addWebSocket()
+            }
+        },1000)
         let h = window.innerHeight;
         let w = 120;
         if (window.innerWidth < 1920) {
@@ -283,48 +292,73 @@
                 w = 85
             }
         }
-        console.log(h)
-        document.querySelector('#rightCar').style.height = (h - w - 110) + 'px'
-        document.querySelector('#leftCar').style.height = (h - w - 110) + 'px'
+        let carH=h - w - 110
+        document.querySelector('#rightCar').style.height = carH+ 'px'
+         $('#rightCar li').css('height',carH/5 + 'px')
+        document.querySelector('#leftCar').style.height = carH + 'px'
+         $('#leftCar li').css('height',carH/5 + 'px')
+
+     /*   $(".no-data").css("display","block")
+        $("#userList").css("display","none")*/
     })
 
     function addWebSocket() {
-        var ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=0');
+        ws = new WebSocket("ws://localhost:8080/DTCGCW/ZhWebSocket.ws?cdid="+cdidx+'connectType=0');
+        let receiveMsg='';
         ws.onopen = function(){//连接成功
-            //计划施工数据
-            ws.send(JSON.stringify({'head':'GetPlanBuildData',message:''}))
+            ws.send(JSON.stringify({'head':'GetHomePageData',message:''}))
         };
         ws.onmessage = function(evt) {//接收数据
             console.log( "Received Message: " + evt.data);
-            if(evt.data==='开始')return
-            if(evt.data.indexOf('结束')!=-1){
-                return
-            }else{
-                let strList=''
-                 strList +=evt.data;
-                bindData(strList)
+            $(".no-data").css("display","none")
+            $("#userList").css("display","block")
+            let receiveMsg='';
+            if(evt.data==='开始'){
+                receiveMsg=''
             }
+            if(evt.data.indexOf('结束')>-1){
+                bindData(receiveMsg)
+            } else {
+                receiveMsg +=evt.data;
+
+            }
+        };
+        ws.onclose = function(evt) {
+        };
+        ws.onerror = function () {
+            $(".no-data").css("display","block")
+            $("#userList").css("display","none")
+           // console.log('连接错误，请稍后再试');
         };
     }
     function bindData(str) {//渲染table
-        let arr=JSON.parse(str)
+        let dataObj=JSON.parse(str)
+        console.log(dataObj)
+        let arr=dataObj.cldbxxList;//车辆当班信息集合
+        $(".Tcgd").text(dataObj.ccjbxxList.tcgd)//停车股道信息
+        $(".Ccxhj").text(dataObj.ccjbxxList.ccxhj)//车场信号机信息
+        $(".Ccdc").text(dataObj.ccjbxxList.ccdc)//车场道岔信息
+        $(".Jxgd").text(dataObj.ccjbxxList.jxgd)//检修股道信息
+        $(".Wjcwxl").text(dataObj.ccjbxxList.wjcwxl)//无接触网线路
         let tableStr=''
         for (let i=0;i<arr.length;i++){
-            tableStr+=`<tr>
-                           <td>${i+1}</td>
-                           <td>${arr[i].trainNumber?arr[i].trainNumber:''}</td>
-                           <td>${arr[i].planTrainNo?arr[i].planTrainNo:''}</td>
-                           <td>${arr[i].stationTrack?arr[i].stationTrack:''}</td>
-                           <td><div class="time">${arr[i].planOutDate}</div></td>
-                            <td>${arr[i].realTrainNo?arr[i].realTrainNo:''}</td>
-                             <td><div class="time">${arr[i].realOutDate?arr[i].realOutDate:''}</div></td>
-                           <td >
-                               <a class="comment">${arr[i].remark?arr[i].remark:''}</a>
-                           </td>
-                       </tr>`
-            }
+            tableStr+=`<li>
+                            <div class="img-head"> <img src="./images/user_pic.png" alt=""></div>
+                              <div class="car-info">
+                                <h4>车场${arr[i].position}</h4>
+                                <div class="user-info">
+                                    <span>姓 <i></i> 名：</span>
+                                        ${arr[i].name}
+                                </div>
+                                <div class="phone-info">
+                                    <span>电话号码：</span>
+                                     ${arr[i].phone}
+                                </div>
+                            </div>
+                       </li>`
         }
-        $("#rightBody").html(rtable)
+        console.log(tableStr)
+        $("#userList").html(tableStr)
     }
 </script>
 </html>

@@ -13,6 +13,9 @@
         line-height: 60px;
     }
 }
+body{
+    overflow: hidden;
+}
 .content-box{
     width: 100%;
     padding: 10px;
@@ -88,11 +91,15 @@
     max-width: calc(100% - 50px);
 }
 .careful-list li{
+    width: 100%;
     font-size:1.25rem;
     font-weight:400;
     color:rgba(255,255,255,1);
     border-bottom:1px solid rgba(53,104,224,1);
-    text-indent: 2rem;
+    padding: 0 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     line-height:50px;
     white-space: nowrap;
     overflow: hidden;
@@ -114,7 +121,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    line-height:50px;
+    line-height:45px;
 }
 .tab-list{
     width: 100%;
@@ -130,7 +137,7 @@
     position: absolute;
     width: 12px;
     left: 10px;
-    top: -12px;
+    top: -15px;
     font-size: 10px;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -147,12 +154,16 @@
     appearance: none;
 }
 .tab-list td{
-    height: 45px;
-    padding-bottom: 10px;
+    height: 53px;
+    border-bottom:1px solid rgba(53,104,224,1);
     vertical-align: middle;
 }
+
+.tab-list tr:last-child td{
+    border-bottom: none;
+}
 .item h5{
-    line-height: 50px;
+    line-height: 45px;
     font-size: 1.4rem;
     font-weight: normal;
     color:rgba(255,255,255,1);
@@ -173,8 +184,8 @@
 }
 .table-item td{
     vertical-align: middle;
-    height: 50px;
     text-align: center;
+    vertical-align: middle;
     border-bottom:1px solid rgba(53,104,224,1);
 }
 .table-item td b{
@@ -194,6 +205,7 @@
 }
 .table-item td:first-child{
     background:rgba(53,104,224,0.5);
+    width: 150px;
     font-size: 22px;
     border-right:1px solid rgba(53,104,224,1)
 }
@@ -235,6 +247,15 @@
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
+}
+.gudao-list span{
+    float: left;
+    width: 20%;
+    text-align: center;
+    color: #ffffff;
+    line-height: 40px;
+    min-height: 40px;
+    border-bottom:1px solid rgba(53,104,224,1);
 }
 
 #rightTable{

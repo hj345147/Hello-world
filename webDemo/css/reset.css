@@ -212,3 +212,10 @@ body{
         min-height: 85px;
     }
 }
+.no-data{
+    position: relative;
+    text-align: center;
+    color:#FFBC0B;
+    line-height: 100px;
+    display: none;
+}

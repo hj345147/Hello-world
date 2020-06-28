@@ -89,24 +89,26 @@ body{
 }
 
 .img-head{
-    width: 100px;
+    width: 95px;
     float: left;
+    margin-right: 15px;
 }
 .img-head img{
     display: block;
-    width: 80px;
+    width: 95px;
     vertical-align: middle;
 }
 .car-info{
     float: left;
-    width: calc( 100% - 100px );
+    width: calc( 100% - 110px );
 }
 .car-info{
     font-size: 1.3rem;
     color: #ffffff;
 }
 .car-info h4{
-    margin-bottom: 15px;
+    padding-top: 5px;
+    line-height: 1.5;
 }
 .user-info{
     margin-bottom: 10px;
